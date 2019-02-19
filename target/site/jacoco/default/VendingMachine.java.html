@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VendingMachine.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">20181021_VendingMachine</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">VendingMachine.java</span></div><h1>VendingMachine.java</h1><pre class="source lang-java linenums">import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+
+public class VendingMachine {
+
+    private VMType vmType;
+    private Currency currency;
+    public Map&lt;Product, Integer&gt; productStock;
+    private Map&lt;Coin, Integer&gt; coinStock;
+
+    // create constructor
+<span class="nc" id="L15">    public VendingMachine(String filePath) {</span>
+<span class="nc" id="L16">        this.initialize(filePath); // call the method initialize</span>
+<span class="nc" id="L17">    }</span>
+    //constructor fara parametru
+<span class="fc" id="L19">    public VendingMachine(){}</span>
+
+    public String displayMenu(Map&lt;Product, Integer&gt; productStock, VMType VmType){
+<span class="fc" id="L22">        String myMenu = &quot;&quot;;</span>
+<span class="fc" id="L23">        myMenu =  myMenu.concat(&quot;This is a &quot; + VmType + &quot; vending machine!&quot;);</span>
+<span class="fc" id="L24">        myMenu = myMenu.concat(&quot;\n&quot;); // this is a new line</span>
+<span class="fc" id="L25">        myMenu = myMenu.concat(&quot;Cod\t Produs\t Pret\t Gramaj&quot;);</span>
+<span class="fc" id="L26">        myMenu = myMenu.concat(&quot;\n&quot;); // this is a new line</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        for (Product product : productStock.keySet()) {</span>
+<span class="fc" id="L28">            myMenu =  myMenu.concat(product.getCod() + &quot;\t&quot; + product.getName() + &quot;\t&quot; + product.getPrice() + &quot;\t\t&quot; + product.getSize());</span>
+<span class="fc" id="L29">            myMenu =  myMenu.concat(&quot;\n&quot;);</span>
+<span class="fc" id="L30">        }</span>
+<span class="fc" id="L31">        System.out.println(myMenu);</span>
+<span class="fc" id="L32">        return myMenu;</span>
+    }
+
+    public String displayCoinsStock(Map&lt;Coin, Integer&gt;coinStock){
+<span class="fc" id="L36">        String myCoinStock = &quot;&quot;;</span>
+<span class="fc" id="L37">        myCoinStock =myCoinStock.concat(&quot;Cod&quot;+&quot;\t &quot;+&quot;Valoare&quot;+&quot;\t&quot;+ &quot;Stoc&quot;);</span>
+<span class="fc" id="L38">        myCoinStock =myCoinStock.concat(&quot;\n&quot;);</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        for(Coin coin : coinStock.keySet()){</span>
+<span class="fc" id="L40">            myCoinStock = myCoinStock.concat(coin.getCod() + &quot;\t\t&quot; + coin.getValue()+ &quot;\t\t&quot;+coinStock.get(coin));</span>
+<span class="fc" id="L41">            myCoinStock =myCoinStock.concat(&quot;\n&quot;);</span>
+<span class="fc" id="L42">        }</span>
+<span class="fc" id="L43">        System.out.println(myCoinStock);</span>
+<span class="fc" id="L44">        return myCoinStock;</span>
+    }
+
+    // scadem produsul din stoc
+    public void deliverProduct(Product product, Map&lt;Product, Integer&gt; productStock){
+<span class="nc" id="L49">        productStock.put(product, productStock.get(product) - 1);</span>
+<span class="nc" id="L50">    }</span>
+
+    public Integer insertCoins(Integer productPrice, Map&lt;Coin, Integer&gt;coinStock){
+
+<span class="nc" id="L54">        Integer sum = 0; // adaugam banii care au fost introdusi</span>
+<span class="nc" id="L55">        System.out.println(&quot;Introdu monezi: &quot;);</span>
+<span class="nc" id="L56">        Scanner scanner = new Scanner (System.in, &quot;UTF-9&quot;);</span>
+<span class="nc" id="L57">        int option = 1;</span>
+<span class="nc" id="L58">        boolean ok = false;</span>
+
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        while(sum &lt; productPrice){</span>
+<span class="nc" id="L61">            ok = false; // inainte sa citesc fiecare optiune trebuie sa mi resetez ok-ul (variabila)</span>
+<span class="nc" id="L62">            option = scanner.nextInt();</span>
+
+<span class="nc bnc" id="L64" title="All 2 branches missed.">            for(Coin coin : coinStock.keySet()) {</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">                if(coin.getCod() == option){ // introduc codul monedi respective de la tastatura</span>
+<span class="nc" id="L66">                    coinStock.put(coin, 1 + coinStock.get(coin)); // introduc o moneda in plus in stocul de monezi</span>
+<span class="nc" id="L67">                    sum = sum + coin.getValue();</span>
+<span class="nc" id="L68">                    System.out.println(&quot;Suma introdusa: &quot; + sum + &quot; &quot; + currency);</span>
+<span class="nc" id="L69">                    Integer toPay = productPrice - sum;</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">                    System.out.println(&quot;Ramas de introdus: &quot; + (toPay &gt;0? toPay : 0) + &quot; &quot; + currency); //exemplu de if in line</span>
+<span class="nc" id="L71">                    ok = true;</span>
+                }
+<span class="nc" id="L73">            }</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">            if(ok == false) {</span>
+<span class="nc" id="L75">                System.out.println(&quot;Optiunea introdusa nu este valida.&quot;);</span>
+            }
+        }
+<span class="nc" id="L78">        return sum;</span>
+    }
+
+    public void payRest(Integer rest){
+        // pornim de la valoarea cea mai mare, sortare monezi descrescator
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        for (Coin coin : coinStock.keySet()) {</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">            while(coin.getValue() &lt;= rest) { // cat timp valoarea monedei mele este mai mica sau egala decat rest</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">                if(coinStock.get(coin) &gt; 0){ // o am in stoc?</span>
+<span class="nc" id="L86">                    System.out.println(&quot;Paying rest &quot; + coin.getValue() + currency); // dau rest</span>
+<span class="nc" id="L87">                    coinStock.put(coin, coinStock.get(coin) - 1); // scade</span>
+<span class="nc" id="L88">                    rest = rest - coin.getValue(); // valoarea mea din value scade daca am dat rest</span>
+                } else {
+                    break; // ne scoate din while (bucla infinita)
+                }
+            }
+<span class="nc" id="L93">        }</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">        if(rest == 0){</span>
+<span class="nc" id="L95">            System.out.println(&quot;Rest dat cu succes!&quot;);</span>
+        } else {
+<span class="nc" id="L97">            System.out.println(&quot;Nu sunt destule monezi pentru rest.&quot;);</span>
+<span class="nc" id="L98">            System.out.println(&quot;Rest ramas:&quot; + rest + &quot; &quot; + currency);</span>
+        }
+<span class="nc" id="L100">    }</span>
+
+    public void start(){
+        while(true) {
+<span class="nc" id="L104">            this.displayMenu(productStock, VMType.COFFEE); // afisam meniu</span>
+<span class="nc" id="L105">            Product product = this.buyProduct(); // selectam produs</span>
+<span class="nc" id="L106">            this.displayCoinsStock(coinStock); // afisam monezi</span>
+<span class="nc" id="L107">            Integer sum = this.insertCoins(product.getPrice(), coinStock); // primim o suma pe care am introdus-o</span>
+<span class="nc" id="L108">            this.deliverProduct(product, productStock); // livram produsul</span>
+<span class="nc" id="L109">            this.payRest(sum - product.getPrice()); // dam rest scazand din suma introdusa pretul produsului</span>
+
+<span class="nc" id="L111">        }</span>
+    }
+
+    // create a method fro buying products
+    public Product buyProduct(){
+
+<span class="nc" id="L117">        System.out.println(&quot;Select a product:&quot;);</span>
+<span class="nc" id="L118">        Scanner scanner = new Scanner(System.in, &quot;UTF-8&quot;);</span>
+<span class="nc" id="L119">        int option = scanner.nextInt();</span>
+
+<span class="nc" id="L121">        boolean ok = false;</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">        if(option == 0){</span>
+<span class="nc" id="L123">            System.exit(0);</span>
+        }
+<span class="nc bnc" id="L125" title="All 2 branches missed.">        for (Product p : productStock.keySet()) { // mergem prin produse</span>
+<span class="nc bnc" id="L126" title="All 2 branches missed.">            if(p.getCod() == option){ // daca optiunea corespunde cu codul produsului</span>
+<span class="nc" id="L127">                Integer quantity = productStock.get(p); // din stoc luam produsul</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">                if(quantity &gt; 0){ // daca stocul nu este epuizat</span>
+<span class="nc" id="L129">                    ok = true;</span>
+<span class="nc" id="L130">                    return p;</span>
+                    //productStock.put(p,quantity-1); // suprascriere
+                    //   System.out.println(&quot;Produs cumparat cu succes.&quot;);
+                } else {
+<span class="nc" id="L134">                    System.out.println(&quot;Nu sunt produse suficiente&quot;);</span>
+<span class="nc" id="L135">                    break;</span>
+                }
+            }
+<span class="nc" id="L138">        }</span>
+
+<span class="nc bnc" id="L140" title="All 2 branches missed.">        if(ok == false){</span>
+<span class="nc" id="L141">            System.out.println(&quot;Optiunea introdusa nu este valida&quot;);</span>
+<span class="nc" id="L142">            return this.buyProduct(); // recursivitate - te reapelezi pe tine</span>
+        }
+<span class="nc" id="L144">        return null;</span>
+    }
+
+    // cream o metoda de initializare a fisierului de proprietati
+    public void initialize(String filePath){
+
+<span class="nc" id="L150">        Path path = Paths.get(filePath); // avoid to use the hard copy of the path in order to specify the location that you want</span>
+<span class="nc" id="L151">        List&lt;String&gt; lines = new ArrayList&lt;&gt;();</span>
+
+        try {
+<span class="nc" id="L154">            lines = Files.readAllLines(path);</span>
+<span class="nc" id="L155">        } catch (IOException e) {</span>
+<span class="nc" id="L156">            e.printStackTrace();</span>
+<span class="nc" id="L157">        }</span>
+<span class="nc" id="L158">        vmType = VMType.valueOf(lines.get(0));</span>
+<span class="nc" id="L159">        currency = Currency.valueOf(lines.get(1));</span>
+
+<span class="nc" id="L161">        productStock = new LinkedHashMap&lt;&gt;();</span>
+<span class="nc" id="L162">        coinStock = new LinkedHashMap&lt;&gt;();</span>
+
+<span class="nc" id="L164">        Integer nrProducts = Integer.valueOf(lines.get(2));</span>
+
+        // citeste produsele inclusiv stocurile
+<span class="nc bnc" id="L167" title="All 2 branches missed.">        for (int i = 3; i &lt; 3 + nrProducts; i++) { // citeste incepand cu linia de index 3 (produsele)</span>
+<span class="nc" id="L168">            String line = lines.get(i);</span>
+<span class="nc" id="L169">            String[] parts = line.split(&quot; &quot;);</span>
+<span class="nc" id="L170">            Product product = new Product(parts[0],Integer.parseInt(parts[1]), Integer.parseInt(parts[2])); // convertim in integer/string</span>
+            // setam codul pentru produse
+<span class="nc" id="L172">            product.setCod(i);</span>
+<span class="nc" id="L173">            productStock.put(product, Integer.valueOf(parts[3])); // pentru a afisa stocul (cantitatea)</span>
+        }
+<span class="nc" id="L175">        Integer currencyLineIndex = 3 + nrProducts; // indexul liniei unde voi gasi nrCoins</span>
+<span class="nc" id="L176">        Integer nrCoins = Integer.valueOf(lines.get(currencyLineIndex)); // converteste la integer si da linie de la indexul respectiv</span>
+        // citeste banii din VM
+<span class="nc bnc" id="L178" title="All 2 branches missed.">        for (int i = currencyLineIndex + 1; i &lt; currencyLineIndex + 1 + nrCoins; i++) { //</span>
+<span class="nc" id="L179">            String line = lines.get(i);</span>
+<span class="nc" id="L180">            String[] parts = line.split(&quot; &quot;);</span>
+<span class="nc" id="L181">            Coin coin = new Coin(i, Integer.valueOf(parts[0])); // i pentru cod</span>
+<span class="nc" id="L182">            coinStock.put(coin, Integer.valueOf(parts[1]));</span>
+        }
+<span class="nc" id="L184">    }</span>
+}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

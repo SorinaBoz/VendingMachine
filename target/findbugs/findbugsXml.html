@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>FindBugs Report</title>
+<style type="text/css">
+		.tablerow0 {
+			background: #EEEEEE;
+		}
+
+		.tablerow1 {
+			background: white;
+		}
+
+		.detailrow0 {
+			background: #EEEEEE;
+		}
+
+		.detailrow1 {
+			background: white;
+		}
+
+		.tableheader {
+			background: #b9b9fe;
+			font-size: larger;
+		}
+
+		.tablerow0:hover, .tablerow1:hover {
+			background: #aaffaa;
+		}
+
+		.priority-1 {
+		    color: red;
+		    font-weight: bold;
+		}
+		.priority-2 {
+		    color: orange;
+		    font-weight: bold;
+		}
+		.priority-3 {
+		    color: green;
+		    font-weight: bold;
+		}
+		.priority-4 {
+		    color: blue;
+		    font-weight: bold;
+		}
+		</style>
+<script type="text/javascript">
+			function toggleRow(elid) {
+				if (document.getElementById) {
+					element = document.getElementById(elid);
+					if (element) {
+						if (element.style.display == 'none') {
+							element.style.display = 'block';
+							//window.status = 'Toggle on!';
+						} else {
+							element.style.display = 'none';
+							//window.status = 'Toggle off!';
+						}
+					}
+				}
+			}
+		</script>
+</head>
+<body>
+<h1>
+<a href="http://findbugs.sourceforge.net">FindBugs</a> Report</h1>
+<h2>Project Information</h2>
+<p>Project: 
+		20181021_VendingMachine</p>
+<p>FindBugs version: 3.0.1</p>
+<p>Code analyzed:</p>
+<ul>
+<li>E:\Workspace\20181021_VendingMachine\target\classes</li>
+</ul>
+<p>
+<br />
+<br />
+</p>
+<h2>Metrics</h2>
+<p>201 lines of code analyzed,
+	in 6 classes, 
+	in 1 packages.</p>
+<table cellspacing="2" cellpadding="5" width="500">
+<tr class="tableheader">
+<th align="left">Metric</th>
+<th align="right">Total</th>
+<th align="right">Density*</th>
+</tr>
+<tr class="tablerow0">
+<td>High Priority Warnings</td>
+<td align="right" />
+<td align="right">0.00</td>
+</tr>
+<tr class="tablerow1">
+<td>Medium Priority Warnings</td>
+<td align="right">7</td>
+<td align="right">34.83</td>
+</tr>
+<tr class="$totalClass">
+<td>
+<b>Total Warnings</b>
+</td>
+<td align="right">
+<b>7</b>
+</td>
+<td align="right">
+<b>34.83</b>
+</td>
+</tr>
+</table>
+<p>
+<i>(* Defects per Thousand lines of non-commenting source statements)</i>
+</p>
+<p>
+<br />
+<br />
+</p>
+<h2>Contents</h2>
+<ul>
+<li>
+<a href="#Warnings_BAD_PRACTICE">Bad practice Warnings</a>
+</li>
+<li>
+<a href="#Warnings_PERFORMANCE">Performance Warnings</a>
+</li>
+<li>
+<a href="#Warnings_STYLE">Dodgy code Warnings</a>
+</li>
+<li>
+<a href="#Details">Details</a>
+</li>
+</ul>
+<h1>Summary</h1>
+<table cellspacing="2" cellpadding="5" width="500">
+<tr class="tableheader">
+<th align="left">Warning Type</th>
+<th align="right">Number</th>
+</tr>
+<tr class="tablerow0">
+<td>
+<a href="#Warnings_BAD_PRACTICE">Bad practice Warnings</a>
+</td>
+<td align="right">1</td>
+</tr>
+<tr class="tablerow1">
+<td>
+<a href="#Warnings_PERFORMANCE">Performance Warnings</a>
+</td>
+<td align="right">5</td>
+</tr>
+<tr class="tablerow0">
+<td>
+<a href="#Warnings_STYLE">Dodgy code Warnings</a>
+</td>
+<td align="right">1</td>
+</tr>
+<tr class="tablerow1">
+<td>
+<b>Total</b>
+</td>
+<td align="right">
+<b>7</b>
+</td>
+</tr>
+</table>
+<h1>Warnings</h1>
+<p>Click on a warning row to see full context information.</p>
+<h2>
+<a name="Warnings_BAD_PRACTICE">Bad practice Warnings</a>
+</h2>
+<table cellspacing="0" width="100%" class="warningtable">
+<tr class="tableheader">
+<th align="left">Code</th>
+<th align="left">Warning</th>
+</tr>
+<tr onclick="toggleRow('N1004B');" class="tablerow1">
+<td>
+<span class="priority-2">Dm</span>
+</td>
+<td>VendingMachine.buyProduct() invokes System.exit(...), which shuts down the entire virtual machine</td>
+</tr>
+<tr class="detailrow1">
+<td />
+<td>
+<p style="display: none;" id="N1004B">
+<a href="#DM_EXIT">Bug type DM_EXIT (click for details)</a>
+<br />In class VendingMachine<br />In method VendingMachine.buyProduct()<br />At VendingMachine.java:[line 123]</p>
+</td>
+</tr>
+</table>
+<h2>
+<a name="Warnings_PERFORMANCE">Performance Warnings</a>
+</h2>
+<table cellspacing="0" width="100%" class="warningtable">
+<tr class="tableheader">
+<th align="left">Code</th>
+<th align="left">Warning</th>
+</tr>
+<tr onclick="toggleRow('N10081');" class="tablerow1">
+<td>
+<span class="priority-2">UrF</span>
+</td>
+<td>Unread field: VendingMachine.vmType</td>
+</tr>
+<tr class="detailrow1">
+<td />
+<td>
+<p style="display: none;" id="N10081">
+<a href="#URF_UNREAD_FIELD">Bug type URF_UNREAD_FIELD (click for details)</a>
+<br />In class VendingMachine<br />Field VendingMachine.vmType<br />At VendingMachine.java:[line 158]</p>
+</td>
+</tr>
+<tr onclick="toggleRow('N100B4');" class="tablerow0">
+<td>
+<span class="priority-2">WMI</span>
+</td>
+<td>VendingMachine.buyProduct() makes inefficient use of keySet iterator instead of entrySet iterator</td>
+</tr>
+<tr class="detailrow0">
+<td />
+<td>
+<p style="display: none;" id="N100B4">
+<a href="#WMI_WRONG_MAP_ITERATOR">Bug type WMI_WRONG_MAP_ITERATOR (click for details)</a>
+<br />In class VendingMachine<br />In method VendingMachine.buyProduct()<br />Field VendingMachine.productStock<br />At VendingMachine.java:[line 127]</p>
+</td>
+</tr>
+<tr onclick="toggleRow('N100F7');" class="tablerow1">
+<td>
+<span class="priority-2">WMI</span>
+</td>
+<td>VendingMachine.displayCoinsStock(Map) makes inefficient use of keySet iterator instead of entrySet iterator</td>
+</tr>
+<tr class="detailrow1">
+<td />
+<td>
+<p style="display: none;" id="N100F7">
+<a href="#WMI_WRONG_MAP_ITERATOR">Bug type WMI_WRONG_MAP_ITERATOR (click for details)</a>
+<br />In class VendingMachine<br />In method VendingMachine.displayCoinsStock(Map)<br />At VendingMachine.java:[line 40]</p>
+</td>
+</tr>
+<tr onclick="toggleRow('N1012C');" class="tablerow0">
+<td>
+<span class="priority-2">WMI</span>
+</td>
+<td>VendingMachine.insertCoins(Integer, Map) makes inefficient use of keySet iterator instead of entrySet iterator</td>
+</tr>
+<tr class="detailrow0">
+<td />
+<td>
+<p style="display: none;" id="N1012C">
+<a href="#WMI_WRONG_MAP_ITERATOR">Bug type WMI_WRONG_MAP_ITERATOR (click for details)</a>
+<br />In class VendingMachine<br />In method VendingMachine.insertCoins(Integer, Map)<br />At VendingMachine.java:[line 66]</p>
+</td>
+</tr>
+<tr onclick="toggleRow('N10161');" class="tablerow1">
+<td>
+<span class="priority-2">WMI</span>
+</td>
+<td>VendingMachine.payRest(Integer) makes inefficient use of keySet iterator instead of entrySet iterator</td>
+</tr>
+<tr class="detailrow1">
+<td />
+<td>
+<p style="display: none;" id="N10161">
+<a href="#WMI_WRONG_MAP_ITERATOR">Bug type WMI_WRONG_MAP_ITERATOR (click for details)</a>
+<br />In class VendingMachine<br />In method VendingMachine.payRest(Integer)<br />Field VendingMachine.coinStock<br />At VendingMachine.java:[line 85]</p>
+</td>
+</tr>
+</table>
+<h2>
+<a name="Warnings_STYLE">Dodgy code Warnings</a>
+</h2>
+<table cellspacing="0" width="100%" class="warningtable">
+<tr class="tableheader">
+<th align="left">Code</th>
+<th align="left">Warning</th>
+</tr>
+<tr onclick="toggleRow('N10010');" class="tablerow1">
+<td>
+<span class="priority-2">DMI</span>
+</td>
+<td>Hard coded reference to an absolute pathname in Main.main(String[])</td>
+</tr>
+<tr class="detailrow1">
+<td />
+<td>
+<p style="display: none;" id="N10010">
+<a href="#DMI_HARDCODED_ABSOLUTE_FILENAME">Bug type DMI_HARDCODED_ABSOLUTE_FILENAME (click for details)</a>
+<br />In class Main<br />In method Main.main(String[])<br />File name E:/file.txt<br />At Main.java:[line 3]</p>
+</td>
+</tr>
+</table>
+<h1>
+<a name="Details">Details</a>
+</h1>
+<h2>
+<a name="DM_EXIT">DM_EXIT: Method invokes System.exit(...)</a>
+</h2>
+
+  <p> Invoking System.exit shuts down the entire Java virtual machine. This
+   should only been done when it is appropriate. Such calls make it
+   hard or impossible for your code to be invoked by other code.
+   Consider throwing a RuntimeException instead.</p>
+
+    
+<h2>
+<a name="DMI_HARDCODED_ABSOLUTE_FILENAME">DMI_HARDCODED_ABSOLUTE_FILENAME: Code contains a hard coded reference to an absolute pathname</a>
+</h2>
+
+<p>This code constructs a File object using a hard coded to an absolute pathname
+(e.g., <code>new File("/home/dannyc/workspace/j2ee/src/share/com/sun/enterprise/deployment");</code>
+</p>
+
+    
+<h2>
+<a name="URF_UNREAD_FIELD">URF_UNREAD_FIELD: Unread field</a>
+</h2>
+
+  <p> This field is never read.&nbsp; Consider removing it from the class.</p>
+
+    
+<h2>
+<a name="WMI_WRONG_MAP_ITERATOR">WMI_WRONG_MAP_ITERATOR: Inefficient use of keySet iterator instead of entrySet iterator</a>
+</h2>
+
+<p> This method accesses the value of a Map entry, using a key that was retrieved from
+a keySet iterator. It is more efficient to use an iterator on the entrySet of the map, to avoid the
+Map.get(key) lookup.</p>
+
+        </body>
+</html>
